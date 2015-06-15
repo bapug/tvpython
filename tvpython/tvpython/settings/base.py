@@ -109,10 +109,10 @@ MIDDLEWARE_CLASSES = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "tvdjango.urls"
+ROOT_URLCONF = "tvpython.urls"
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = "tvdjango.wsgi.application"
+WSGI_APPLICATION = "tvpython.wsgi.application"
 
 TEMPLATE_DIRS = [
     os.path.join(PACKAGE_ROOT, "templates"),
@@ -137,7 +137,7 @@ INSTALLED_APPS = [
     "metron",
 
     # project
-    "tvdjango",
+    "tvpython",
 ]
 
 # A sample logging configuration. The only tangible logging

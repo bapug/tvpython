@@ -4,7 +4,7 @@ from django.utils.importlib import import_module
 
 class AppConfig(BaseAppConfig):
 
-    name = "tvdjango"
+    name = "tvpython"
 
     def ready(self):
-        import_module("tvdjango.receivers")
+        import_module("tvpython.receivers")
