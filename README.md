@@ -1,6 +1,6 @@
 # Welcome
 
-This is the Django project for the Treasure Valley Python Users group, located in beautiful souther Idaho.
+This is the Django project for the Treasure Valley Python Users group, located in beautiful southern Idaho.
 
 This site is based on the pinax-account project. There are some changes to the structure based on Two-Scoops of Django best practices.
 
