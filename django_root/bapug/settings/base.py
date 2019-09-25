@@ -111,10 +111,10 @@ MIDDLEWARE_CLASSES = [
     "account.middleware.TimezoneMiddleware",
 ]
 
-ROOT_URLCONF = "tvpython.urls"
+ROOT_URLCONF = "bapug.urls"
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = "tvpython.wsgi.application"
+WSGI_APPLICATION = "bapug.wsgi.application"
 
 TEMPLATE_DIRS = [
     os.path.join(PACKAGE_ROOT, "templates"),
@@ -130,16 +130,16 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
     # theme
-    "bootstrapform",
-    "pinax_theme_bootstrap",
+    #"bootstrapform",
+    #"pinax_theme_bootstrap",
 
     # external
     "account",
     "eventlog",
-    "metron",
+    #"metron",
 
     # project
-    "tvpython",
+    "bapug",
 ]
 
 # A sample logging configuration. The only tangible logging

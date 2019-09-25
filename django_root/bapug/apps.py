@@ -4,7 +4,7 @@ from importlib import import_module
 
 class AppConfig(BaseAppConfig):
 
-    name = "tvpython"
+    name = "bapug"
 
     def ready(self):
-        import_module("tvpython.receivers")
+        import_module("bapug.receivers")

@@ -1,0 +1,12 @@
+-r base.txt
+
+# Database
+psycopg2==2.7.5
+
+django-extensions
+Werkzeug
+
+django-debug-toolbar
+
+ipython
+

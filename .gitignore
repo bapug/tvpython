@@ -4,3 +4,6 @@ env.txt
 local_config.py
 site
 paramiko.log
+/node_modules
+/.idea
+/.venv3

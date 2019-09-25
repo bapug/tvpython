@@ -15,7 +15,7 @@ ssh.util.log_to_file("paramiko.log", 10)
 
 @hosts('django@tvpython.org')
 def release():
-    with cd("/home/django/sites/tvpython"):
+    with cd("/home/django/sites/bapug"):
         run("./siteupdate.sh")
 
 
