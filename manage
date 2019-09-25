@@ -1,18 +1,12 @@
-#!/bin/bash
+#!/bin/sh
 
-if [ -f env.txt ];then
-    environment=`cat env.txt`
-else
-    echo "Please add your preferred virtualenv to env.txt"
-    echo ">> echo \"envname\" > env.txt"
-    exit 1
 
-fi
+base=$(cd $(dirname $0);pwd)
+root=$(dirname $(find . -depth -maxdepth 2 -name 'manage.py'))
+cd ${root}
 
-echo $WORKON_HOME/$environment/bin/activate
-source $WORKON_HOME/$environment/bin/activate
+export PYTHONPATH=${base}:${root}
 
-pushd django_root
-python manage.py "$@"
-popd
+${base}/.venv3/bin/python manage.py "$@"
+
 

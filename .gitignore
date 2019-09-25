@@ -7,3 +7,5 @@ paramiko.log
 /node_modules
 /.idea
 /.venv3
+/django_root/.env.local
+/.env

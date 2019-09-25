@@ -1,10 +1,16 @@
 from django.dispatch import receiver
+import json
+import logging
 
 from account.signals import password_changed
 from account.signals import user_sign_up_attempt, user_signed_up
 from account.signals import user_login_attempt, user_logged_in
 
-from eventlog.models import log
+logger = logging.getLogger(__name__)
+
+
+def log(user='', action='', extra=dict):
+    logger.info(f"User:{user} action:{action} extra:{json.stringify(extra)}")
 
 
 @receiver(user_logged_in)

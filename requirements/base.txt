@@ -1,6 +1,7 @@
 # Core tools
 django==2.2.3
 wagtail==2.6.2
+psycopg2-binary~=2.8
 
 django-allauth==0.40.0
 
@@ -9,6 +10,7 @@ raven==6.10.0
 sentry-sdk~=0.10
 
 django-model-utils==3.2.0
+django-user-accounts~=2.1
 
 # Reading environment variables, secure enclaves
 django-environ==0.4.5

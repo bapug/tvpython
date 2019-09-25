@@ -1,0 +1,28 @@
+version: '2'
+
+volumes:
+  postgres_data_dev: {}
+  webpack_node_modules: {}
+
+services:
+  postgres:
+    container_name: bapug-postgres
+    build: ./compose/postgres
+    volumes:
+      # You can also modify this to point to your local Dropbox location where the shared
+      # backups are stored. For me this is:
+      - "${BACKUP_ROOT}:/backups"
+      - "${LOCAL_BACKUPS}:/local_backups"
+    environment:
+      - POSTGRES_USER=django_user
+      - POSTGRES_DB=bapug
+      - POSTGRES_PASSWORD
+    ports:
+      - "5450:5432"
+
+  smtpd:
+    container_name: bapug-smtpd
+    build: ./compose/smtpd
+    ports:
+      - "8050:25"
+
