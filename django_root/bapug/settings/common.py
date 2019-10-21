@@ -138,6 +138,24 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.contrib.staticfiles",
 
+    # Wagtail
+    'wagtail.contrib.forms',
+    'wagtail.contrib.redirects',
+    'wagtail.contrib.routable_page',
+    'wagtail.embeds',
+    'wagtail.sites',
+    'wagtail.users',
+    'wagtail.snippets',
+    'wagtail.documents',
+    'wagtail.images',
+    'wagtail.search',
+    'wagtail.admin',
+    'wagtail.core',
+    'wagtail.contrib.table_block',
+    'wagtail.contrib.settings',
+    'modelcluster',
+    'taggit',
+
     # theme
     #"bootstrapform",
     #"pinax_theme_bootstrap",
@@ -147,6 +165,7 @@ INSTALLED_APPS = [
 
     # project
     "bapug",
+    "frontend",
 ]
 
 # A sample logging configuration. The only tangible logging

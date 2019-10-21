@@ -1,0 +1,13 @@
+import os
+import sys
+import environ
+from bapug.settings.read_env import read_env
+
+print(f"Using local config file {__file__}")
+
+env = environ.Env()
+read_env()
+
+from bapug.settings.{{ settings_file }} import *
+
+

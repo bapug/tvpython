@@ -12,8 +12,19 @@ sentry-sdk~=0.10
 django-model-utils==3.2.0
 django-user-accounts~=2.1
 
+# Wagtail plugins and addons
+wagtail-autocomplete==0.3.1
+
+django-model-utils==3.2.0
+django-cors-headers==3.1.0
+
 # Reading environment variables, secure enclaves
 django-environ==0.4.5
+
+# Channels
+channels==2.3.0
+service_identity==18.1.0
+channels_redis==2.4.0
 
 # For caching
 django-redis==4.10.0
@@ -36,5 +47,3 @@ django-suit==0.2.26
 #zappa==0.45.1
 
 django-webpack-loader==0.6.0
-
-#pinax-theme-bootstrap==5.7.6

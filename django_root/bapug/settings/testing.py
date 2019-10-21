@@ -5,7 +5,7 @@ from .common import *
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-        'LOCATION': 'tennisblock_flake'
+        'LOCATION': 'bapug_flake'
     }
 }
 
