@@ -2,10 +2,10 @@
 
 zipfile=$1
 VERSION=$2
-APPPATH=${APPPATH:-/home/django/sharpertool}
+APPPATH=${APPPATH:-/var/www/bapug}
 zipdir=${APPPATH}/zipdir
 deploydir=${APPPATH}/deploy
-excludefile=${APPPATH}/deplay_exclude.lst
+excludefile=${APPPATH}/deploy_exclude.lst
 
 echo "unzip ${zipfile} to ${zipdir}"
 rm -rf ${zipdir}
@@ -46,7 +46,6 @@ echo "Updating APP_VERSION to match production version"
 cat << EOF >| .versions.env
 # Versions for app monitoring
 APP_VERSION=${VERSION}
-DJANGO_SENTRY_RELEASE=${VERSION}
 SERVER_VERSION=${VERSION}
 
 EOF
@@ -58,6 +57,10 @@ echo -e "\n Reloading uWSGI web service.."
 
 # Reload with reload.me
 touch reload.me
+
+echo -e "\nRestart Daphne in case there are changes"
+sudo systemctl restart daphne
+sudo systemctl status daphne
 
 rm -f ${APPPATH}/maintenance.on
 

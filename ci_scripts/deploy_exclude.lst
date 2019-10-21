@@ -2,13 +2,16 @@
 # Keeps rsync from removing configuration files
 health
 local_config.py
-gardentronic_exclude.lst
+deploy_exclude.lst
 manage
 deploy
 zipdir
 reload.me
 uwsgi.ini
 wsgi.py
+asgi.py
+daphne.sock
+daphne.sock.lock
 .env
 .versions.env
 .env.local
@@ -16,3 +19,5 @@ wsgi.py
 .venv
 maintenance.on
 deploy_zip.sh
+site_deploy_zip.sh
+
