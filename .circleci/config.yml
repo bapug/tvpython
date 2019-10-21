@@ -152,7 +152,7 @@ jobs:
           name: Show compiled contents of webpack build location
           command: |
             ls -al ./webpack_assets/dist.prod || true
-            ls -al ./bapug/frontend || true
+            ls -alr ./django_root/frontend || true
 
       - run:
           name: Copy Webpack compiled dist.prod over to frontend
@@ -162,8 +162,8 @@ jobs:
       - run:
           name: Show frontend output directories
           command: |
-            ls -al ./bapug/frontend || true
-            ls -al ./bapug/frontend/static || true
+            ls -al ./django_root/frontend || true
+            ls -alr ./django_root/frontend/static || true
 
       - save_cache:
           key: *asset_build_cache_key
@@ -173,8 +173,8 @@ jobs:
       - persist_to_workspace:
           root: *workspace_root
           paths:
-            - ./bapug/frontend/static
-            - ./bapug/frontend/webpack-assets-stats.json
+            - ./django_root/frontend/static
+            - ./django_root/frontend/webpack-assets-stats.json
             - ./collectedstatic
 
   compile_client_code:
@@ -212,8 +212,8 @@ jobs:
           root: *workspace_root
           paths:
             - ./client/dist.prod
-            - ./bapug/frontend/static
-            - ./bapug/frontend/webpack-stats.json
+            - ./django_root/frontend/static
+            - ./django_root/frontend/webpack-stats.json
             - ./client/src/pages
             - ./collectedstatic
 
@@ -241,7 +241,7 @@ jobs:
       - run:
           name: Show compiled contents of static location
           command: |
-            ls -al ./bapug/frontend/static || true
+            ls -al ./django_root/frontend/static || true
 
       - run:
           name: Collect static files
