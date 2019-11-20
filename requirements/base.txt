@@ -21,8 +21,8 @@ django-cors-headers==3.1.0
 # My version has a change to allow overwriting 'previous' environment values.
 # Submitted a PR, but was  never accepted
 # Reading environment variables, secure enclaves
-django-environ-gardentronic==0.4.5.1
-#git+git://github.com/sharpertool/django-environ.git@develop#egg=django-environ
+#django-environ-gardentronic==0.4.5.1
+git+git://github.com/sharpertool/django-environ.git@develop#egg=django-environ
 
 # Channels
 channels==2.3.0
