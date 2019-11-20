@@ -1,4 +1,4 @@
-version: '2'
+version: '3.7'
 
 volumes:
   postgres_data_dev: {}
@@ -6,7 +6,7 @@ volumes:
 
 services:
   postgres:
-    container_name: bapug-postgres
+    container_name: ${NAME:-bapug}-postgres
     build: ./compose/postgres
     volumes:
       # You can also modify this to point to your local Dropbox location where the shared
@@ -18,11 +18,30 @@ services:
       - POSTGRES_DB=bapug
       - POSTGRES_PASSWORD
     ports:
-      - "5450:5432"
+      - "${PG_PORT:-5450}:5432"
 
-  smtpd:
-    container_name: bapug-smtpd
-    build: ./compose/smtpd
+  elasticsearch:
+    container_name: ${NAME:-bapug}-elasticsearch
+    build: ./compose/elasticsearch
     ports:
-      - "8050:25"
+      - "${ELASTIC_PORT:-9290}:9200"
+
+  redis:
+    container_name: ${NAME:-bapug}-redis
+    build: ./compose/redis
+    ports:
+      - "${REDIS_PORT:-6479}:6379"
+
+#  smtpd:
+#    container_name: bapug-smtpd
+#    build: ./compose/smtpd
+#    ports:
+#      - "8050:25"
+
+  mailhog:
+    container_name: ${NAME:-bapug}-mailhog
+    build: ./compose/mailhog
+    ports:
+      - "${MAILHOG_SMTP:-1025}:1025"
+      - "${MAILHOG_HTTP:-8025}:8025"
 
