@@ -32,6 +32,7 @@ executors:
     working_directory: ~/build
     docker:
       - image: getsentry/sentry-cli:1.49.0
+        user: circleci
         environment:
           ENVVAL: test
 
