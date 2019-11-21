@@ -1,4 +1,6 @@
+from email.utils import parseaddr
 import environ
+import os
 from os.path import join, exists
 from email.utils import getaddresses
 import sys
@@ -7,9 +9,12 @@ from sentry_sdk.integrations.django import DjangoIntegration
 
 env = environ.Env()
 
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 CONF_DIR = environ.Path(__file__)
 DJANGO_ROOT = CONF_DIR - 3
 PROJECT_ROOT = DJANGO_ROOT - 1
+BASE_DIR = DJANGO_ROOT - 1
+
 print(f"DJANGO_ROOT:{DJANGO_ROOT}")
 print(f"PROJECT_ROOT:{PROJECT_ROOT}")
 
@@ -31,9 +36,23 @@ DATABASES = {
 
 print("Databases: {}".format(DATABASES['default']))
 
+# Security Options
+SECRET_KEY = env.str('SECRET_KEY')
+CSRF_COOKIE_SECURE = env.bool('CSRF_COOKIE_SECURE', default=True)
+SESSION_COOKIE_SECURE = env.bool('SESSION_COOKIE_SECURE', default=True)
+X_FRAME_OPTIONS = 'DENY'
+SECURE_BROWSER_XSS_FILTER = True
+
+SESAME_MAX_AGE = 30
+
 WAGTAIL_SITE_NAME = env.str("WAGTAIL_SITE_NAME", default="bapug.org")
 
 ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', default=[WAGTAIL_SITE_NAME])
+
+# This allows us to specify admins in an environment file as a list.
+default_admins = ['Ed Henderson <ed@bapug.org>']
+ADMINS = [parseaddr(addr) for addr in env.list("ADMINS", default=default_admins)]
+MANAGERS = ADMINS
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -124,10 +143,30 @@ TEMPLATES = [
     }
 ]
 
+# Disable CSRF to make it easier to use REST client
+# Only do this temporarily, might make some API calls work when they shouldn't
+if DEBUG and env.bool('DISABLE_CSRF', default=False):
+    MIDDLEWARE.remove('django.middleware.csrf.CsrfViewMiddleware')
+
 ROOT_URLCONF = "bapug.urls"
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = "bapug.wsgi.application"
+ASGI_APPLICATION = 'bapug.routing.application'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '200/hour',
+        'user': '1000/hour',
+    }
+}
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -174,32 +213,100 @@ INSTALLED_APPS = [
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
 LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "filters": {
-        "require_debug_false": {
-            "()": "django.utils.log.RequireDebugFalse"
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
         }
     },
-    "handlers": {
-        "mail_admins": {
-            "level": "ERROR",
-            "filters": ["require_debug_false"],
-            "class": "django.utils.log.AdminEmailHandler"
-        }
+    'root': {
+        'level': 'WARNING',
+        'handlers': ['mail_admins'],
     },
-    "loggers": {
-        "django.request": {
-            "handlers": ["mail_admins"],
-            "level": "ERROR",
-            "propagate": True,
+    'formatters': {
+        'console': {
+            'format': '%(name)-12s %(levelname)-8s %(message)s',
         },
-    }
+        'file': {
+            'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+        },
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s '
+                      '%(process)d %(thread)d %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'console'
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler',
+            'include_html': True,
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'formatter': 'file',
+            'filename': '/tmp/gardentronic_debug.log',
+        },
+    },
+    'loggers': {
+        '': {
+            'level': 'DEBUG',
+            'handlers': ['console', 'file'],
+            'propagate': True,
+        },
+        'django': {
+            'handlers': ['console', 'file'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'django_test': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django.db.backends': {
+            'level': 'ERROR',
+            'handlers': ['console', 'mail_admins'],
+            'propagate': False,
+        },
+        'django.utils.autoreload': {
+            'level': 'ERROR',
+        }
+
+    },
 }
+
 
 FIXTURE_DIRS = [
     PROJECT_ROOT("fixtures"),
 ]
+
+CACHES = {
+    'default': {
+        **env.cache('REDIS_URL', default='dummycache://')
+    }
+}
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [env.str("CHANNELS_REDIS_URI", default="")],
+        },
+    },
+}
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 

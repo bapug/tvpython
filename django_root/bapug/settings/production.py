@@ -2,13 +2,16 @@ print("Running production settings")
 
 from .common import *
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "django",
-        "USER": "django",
-        "HOST": 'localhost',
-        "PASSWORD": "Wouldn't you like to know!!"
-    }
-}
+STATIC_ROOT = BASE_DIR('collectedstatic')
 
+# Security settings for production
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+SECURE_HSTS_SECONDS = 3600
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_HSTS_PRELOAD = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+loggers = LOGGING['loggers']
+loggers['django_test']['handlers'] = []
+loggers['django.db.backends']['handlers'] = ['mail_admins']
