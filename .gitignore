@@ -10,3 +10,4 @@ paramiko.log
 /django_root/.env.local
 /.env
 /.envrc
+ssl/*.pem
