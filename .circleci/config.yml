@@ -378,7 +378,7 @@ jobs:
       - *attach_workspace
 
       - run: Install Sentry CLI to get latest version
-        - command: |
+          command: |
             mkdir -p `pwd`/bin
             export INSTALL_DIR=`pwd`/bin
             curl -sL https://sentry.io/get-cli/ | bash;
