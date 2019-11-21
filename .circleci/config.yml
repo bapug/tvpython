@@ -28,6 +28,13 @@ executors:
           DEPLOY_BUCKET_PATH: backend_versions
           APP_DIR: /var/www/bapug
 
+  sentry_release:
+    working_directory: ~/build
+    docker:
+      - image: getsentry/sentry-cli:1.49.0
+        environment:
+          ENVVAL: test
+
 references:
 
   workspace_root: &workspace_root
@@ -344,12 +351,12 @@ jobs:
             ssh deploy_host "mkdir -p ${APP_DIR}/deploy/"
             scp zipout/${zipfile} deploy_host:${APP_DIR}/deploy/
 
-      - run:
-          name: Copy deploy script to server
-          command: |
-            ./ci_scripts/copy_deploy_script.sh || true
-          environment:
-            SRC_SCRIPT: site_deploy_zip.sh
+#      - run:
+#          name: Copy deploy script to server
+#          command: |
+#            ./ci_scripts/copy_deploy_script.sh || true
+#          environment:
+#            SRC_SCRIPT: site_deploy_zip.sh
 
       - run:
           name: Run deploy script on test server
@@ -362,19 +369,26 @@ jobs:
             ssh deploy_host \
               "${APP_DIR}/site_deploy_zip.sh ${zipfile} ${VERSION}"
 
+  publish_sentry_release:
+    executor: sentry_release
+    steps:
+      - *restore_repo
+      - *disable_strict_type_checking
+      - *attach_workspace
+
       - run:
           name: Add Sentry release
           command: |
             export VERSION=$(sentry-cli releases propose-version)
             sentry-cli releases new $VERSION
             sentry-cli releases set-commits --auto $VERSION
-            sentry-cli releases files $VERSION upload-sourcemaps ./client/dist.prod
+            # Will have to add this if/when we get a client
+            # sentry-cli releases files $VERSION upload-sourcemaps ./client/dist.prod
             sentry-cli releases finalize $VERSION
             sentry-cli releases deploys $VERSION new -e test
           environment:
             SENTRY_ORG: sharpertool-vc
             SENTRY_PROJECT: bapug
-
 
 workflows:
   version: 2
@@ -473,3 +487,11 @@ workflows:
             branches:
               ignore: /.*/
 
+      - publish_sentry_release:
+          requires:
+            - deploy_to_prod_server
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/

@@ -1,0 +1,17 @@
+# Copy to .envrc and modify for your local environment
+# Some values must be keeped synchronized with your django_root/.env.local
+export POSTGRES_PASSWORD=<Pick a simple password for this location>
+export BACKUP_ROOT=<A location to load and save development db backups. A shared dropbox folder works>
+export LOCAL_BACKUPS=<Same as above, but for your private versions>
+
+# All of these ports must be unique. If you have multiple projects you are working on, then
+# modify these values so that this project has it's own. I usually modify the last number, i.e.
+# this is project '7'
+export DJPORT=8007
+export PG_PORT=5457
+export REDIS_PORT=6477
+export ELASTIC_PORT=9297
+export HOTPORT=8087
+export MAILHOG_SMTP=1027
+export MAILHOG_HTTP=8027
+export NAME=bapug
