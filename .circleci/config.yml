@@ -371,17 +371,24 @@ jobs:
               "${APP_DIR}/site_deploy_zip.sh ${zipfile} ${VERSION}"
 
   publish_sentry_release:
-    executor: sentry_release
+    executor: container_config_min
     steps:
       - *restore_repo
       - *disable_strict_type_checking
       - *attach_workspace
+
+      - run: Install Sentry CLI to get latest version
+        - command: |
+            mkdir -p `pwd`/bin
+            export INSTALL_DIR=`pwd`/bin
+            curl -sL https://sentry.io/get-cli/ | bash;
 
       - run:
           name: Add Sentry release
           command: |
             pwd
             ls -al
+            export PATH=`pwd`/bin:$PATH
             export PROPOSED_VERSION=$(sentry-cli releases propose-version)
             echo "Proposed version: ${PROPOSED_VERSION}"
             #export VERSION=${PROPOSED_VERSION:-${CIRCLE_TAG}}
