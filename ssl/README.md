@@ -7,3 +7,4 @@ Use mkcert to add some pem files here
     
 Add these to an nginx config you might be using
 
+Good luck
