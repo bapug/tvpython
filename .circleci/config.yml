@@ -379,7 +379,12 @@ jobs:
       - run:
           name: Add Sentry release
           command: |
-            export VERSION=$(sentry-cli releases propose-version)
+            pwd
+            ls -al
+            export PROPOSED_VERSION=$(sentry-cli releases propose-version)
+            echo "Proposed version: ${PROPOSED_VERSION}"
+            #export VERSION=${PROPOSED_VERSION:-${CIRCLE_TAG}}
+            export VERSION=${CIRCLE_TAG:-${timestamp}_${CIRCLE_SHA1}}
             sentry-cli releases new $VERSION
             sentry-cli releases set-commits --auto $VERSION
             # Will have to add this if/when we get a client
