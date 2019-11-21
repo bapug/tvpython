@@ -389,6 +389,7 @@ jobs:
           command: |
             pwd
             ls -al
+            git remote -v
             export PATH=`pwd`/bin:$PATH
             export PROPOSED_VERSION=$(sentry-cli releases propose-version)
             echo "Proposed version: ${PROPOSED_VERSION}"
