@@ -69,6 +69,19 @@ LANGUAGE_CODE = "en-us"
 
 SITE_ID = env.int("SITE_ID", default=1)
 
+DJANGO_SENTRY_DSN = env.str(
+    'DJANGO_SENTRY_DSN',
+    default=')
+
+# Get settings from environment. These are required to be set.
+APP_VERSION = env.str("APP_VERSION", default='unknown')
+
+if DJANGO_SENTRY_DSN:
+    sentry_sdk.init(
+        dsn=DJANGO_SENTRY_DSN,
+        integrations=[DjangoIntegration(), RedisIntegration()],
+        release=f"bapug@{APP_VERSION}"
+    )
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
