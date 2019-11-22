@@ -6,6 +6,7 @@ from email.utils import getaddresses
 import sys
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
+from sentry_sdk.integrations.redis import RedisIntegration
 
 env = environ.Env()
 
@@ -208,6 +209,7 @@ INSTALLED_APPS = [
     'wagtail.contrib.settings',
     'modelcluster',
     'taggit',
+    'bootstrap4',
 
     # theme
     #"bootstrapform",

@@ -1,8 +1,7 @@
 {% extends "common/site_base.html" %}
 
-{% load url from future %}
 {% load i18n %}
-{% load bootstrap %}
+{% load bootstrap4 %}
 
 {% block head_title %}{% trans "Sign up" %}{% endblock %}
 
@@ -12,7 +11,7 @@
             <form id="signup_form" method="post" action="{% url "account_signup" %}" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
                 <legend>{% trans "Sign up" %}</legend>
                 {% csrf_token %}
-                {{ form|bootstrap }}
+                {%  bootstrap_form form %}
                 {% if redirect_field_value %}
                     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}

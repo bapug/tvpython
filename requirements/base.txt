@@ -39,6 +39,7 @@ django-pipeline==1.6.14
 
 # SCSS files
 django-compressor==2.3
+django-bootstrap4==1.0.1
 
 # Utilities
 pytz==2019.1
