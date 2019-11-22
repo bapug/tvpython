@@ -71,7 +71,7 @@ SITE_ID = env.int("SITE_ID", default=1)
 
 DJANGO_SENTRY_DSN = env.str(
     'DJANGO_SENTRY_DSN',
-    default=')
+    default='')
 
 # Get settings from environment. These are required to be set.
 APP_VERSION = env.str("APP_VERSION", default='unknown')
