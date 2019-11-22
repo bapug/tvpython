@@ -11,13 +11,14 @@
     <section class="jumbotron">
         <div class="container">
             {% include "_messages.html" %}
-            <h1>{% blocktrans %}Welcome to<br>Treasure Valley Python Users{% endblocktrans %}</h1>
+            <h1>{% blocktrans %}Welcome to<br>Boise Area Python Users Group (BAPUG){% endblocktrans %}</h1>
             <p>
                 {% blocktrans %}
-                We are a group of python users or learners located in the beautiful Treasure Valley of Idaho.
-                Members are experienced, just learning, or brand new to Python. We hold monthly meetings at the
-                Watercooler in downtown Boise, as well as a monthly 'Hacker' meeting where uses bring a project
-                to work on, get help with, or just learn something new.
+                    We are a group of python users or learners located in the beautiful Treasure Valley of Idaho.
+                    Members are experienced, just learning, or brand new to Python. We hold monthly meetings in downtown
+                    Boise.
+{#                    as well as a monthly 'Hacker' meeting where users bring a project#}
+{#                    to work on, get help with, or just learn something new.#}
                 {% endblocktrans %}
             </p>
             {% if user.is_authenticated %}
@@ -43,32 +44,35 @@
             <h2 class="text-center">{% blocktrans %}Why do we love Python?{% endblocktrans %}</h2>
             <p class="lead">
                 {% blocktrans %}
-                <b>Python</b> is an object oriented scripting language. There are more than <a target='_blank' href="https://pypi.python.org/pypi">50 thousand installable packages</a>
-                available for a host of applications. Python can be used to perform complex mathematics using the
-                numpy or scipy libraries, 3D graphics and games using <a target='_blank' href="https://www.panda3d.org/">Panda3d</a>,
+                    <b>Python</b> is an object oriented scripting language. There are more than
+                    <a target='_blank' href="https://pypi.python.org/pypi">50 thousand installable packages</a>
+                    available for a host of applications. Python can be used to perform complex mathematics using the
+                    numpy or scipy libraries, 3D graphics and games using
+                    <a target='_blank' href="https://www.panda3d.org/">Panda3d</a>,
                     games using <a target='_blank' href="http://pygame.org/news.html">PyGame</a>, and even mobile
-                applications using <a target='_blank' href="http://kivy.org/">Kivy</a>.
+                    applications using <a target='_blank' href="http://kivy.org/">Kivy</a>.
                 {% endblocktrans %}
             </p>
             <div class="feature-columns">
                 <div>
                     <i class="fa fa-cubes fa-3x"></i><br>
                     {% blocktrans %}
-                    <b>Meetings</b> Meetings are held on the 2nd Tuesday of the month
-                        at the <a target='_blank' href="http://www.watercoolerboise.com/">Watercooler</a> in Downtown Boise.
+                        <b>Meetings</b> Meetings are held on the 3nd Wednesday of the month
+                        at the Boise State CS Building in in Downtown
+                        Boise.
                     {% endblocktrans %}
                 </div>
                 <div>
                     <i class="fa fa-puzzle-piece fa-3x"></i><br>
                     {% blocktrans %}
-                    <b>Join</b> Join the group using the <a target='_blank' href="http://www.meetup.com/Boise-Python-Developers/">meetup site</a>
+                        <b>Join</b> Join the group using the
+                        <a target='_blank' href="https://www.meetup.com/boise-area-python-user-group/">meetup site</a>
                     {% endblocktrans %}
                 </div>
                 <div>
                     <i class="fa fa-tint fa-3x"></i><br>
                     {% blocktrans %}
-                    <b>Learn</b> There are many learning resources. We will be adding more here, but start
-                        with the <a target='_blank' href="http://www.codecademy.com/en/tracks/python">Code Academy</a> lectures.
+                        <b>Learn</b> There are many learning resources. We will be adding more here soon!
                     {% endblocktrans %}
                 </div>
             </div>
@@ -78,8 +82,8 @@
         <div class="container">
             <p class="lead text-center">
                 {% blocktrans %}
-                See <a href="http://www.meetup.com/Boise-Python-Developers/">Boise Python Developers Meetup</a>
-                for more information.
+                    See <a href="https://www.meetup.com/boise-area-python-user-group/">Boise Area Python Users Group</a>
+                    for more information.
                 {% endblocktrans %}
             </p>
         </div>
