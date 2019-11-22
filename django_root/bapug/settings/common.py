@@ -130,7 +130,9 @@ MIDDLEWARE = (
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [DJANGO_ROOT("templates"),],
+        'DIRS': [
+            DJANGO_ROOT("templates"),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -202,7 +204,7 @@ INSTALLED_APPS = [
     "account",
 
     # project
-    "bapug",
+    "webapp",
     "frontend",
 ]
 

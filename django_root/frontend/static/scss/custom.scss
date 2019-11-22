@@ -1,0 +1,21 @@
+body {
+    padding-top: 50px;
+}
+
+section {
+    padding: 20px 0;
+}
+
+footer {
+    padding-bottom: 20px;
+}
+
+.feature-columns {
+
+    > div {
+        i.fa {
+            margin-bottom: 0.2em;
+        }
+        margin: 2em 0;
+    }
+}
