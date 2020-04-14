@@ -1,6 +1,6 @@
 # Core tools
 django==2.2.7
-wagtail==2.7.0
+wagtail==2.7.2
 psycopg2-binary==2.8.4
 
 django-allauth==0.40.0
