@@ -43,7 +43,7 @@ django-bootstrap4==1.0.1
 
 # Utilities
 pytz==2019.1
-Pillow==5.4.1
+Pillow==8.2.0
 
 django-suit==0.2.26
 
