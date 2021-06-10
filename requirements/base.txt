@@ -1,5 +1,5 @@
 # Core tools
-django==2.2.7
+django==2.2.24
 wagtail==2.7.0
 psycopg2-binary==2.8.4
 
